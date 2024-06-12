@@ -5,7 +5,6 @@ import { db, storage } from "../../../../firebase";
 import { updateDoc, getDoc, doc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import CloseIcon from "@mui/icons-material/Close";
-
 import Skeleton from "../../components/Skeleton";
 
 const Page: React.FC = () => {
@@ -79,7 +78,6 @@ const Page: React.FC = () => {
         `${product.name}/cover ${selectedImageIndex}`
       );
 
-      // Upload new image
       await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(
         ref(storageRef, `cover ${selectedImageIndex}`)
@@ -178,7 +176,7 @@ const Page: React.FC = () => {
                   Cover Image
                 </label>
                 {product.coverImage && (
-                  <div className="relative h-48 w-48 mb-3">
+                  <div className="relative h-96 w-96 mb-3">
                     <span
                       className="absolute right-2 top-2 cursor-pointer text-red-500"
                       onClick={() =>
@@ -191,7 +189,7 @@ const Page: React.FC = () => {
                       <CloseIcon />
                     </span>
                     <img
-                      className="h-48 w-48 rounded-lg object-cover"
+                      className="h-96 w-96 rounded-lg object-cover"
                       src={product.coverImage}
                       alt="Cover"
                     />
