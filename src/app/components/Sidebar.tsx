@@ -32,39 +32,56 @@ export default function Sidebar({
 }>) {
   //   const [dark, setDark] = React.useState(false);
 
-  console.log(selectNav);
-
   return (
     <React.Fragment>
       <SwipeableDrawer
         anchor="left"
-        open={true}
-        onClose={() => {}}
-        onOpen={() => {}}
+        open={openSidebar}
+        onClose={() => setOpenSidebar(false)}
+        onOpen={() => setOpenSidebar(true)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            backgroundColor: "rgb(17 24 39)", // Set the background color of the drawer
+          },
+        }}
       >
-        <Box sx={{ width: 250 }}>
+        <Box sx={{ width: 250, backgroundColor: "rgb(17 24 39)" }}>
+          {" "}
+          {/* Set the background color of the content */}
           {/* TODO: right side close button  */}
-          <ListItemButton>
+          <ListItemButton
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingRight: "8px", // Add padding to the right for space
+              color: "white", // Set the text color to white for visibility
+            }}
+          >
             <ListItemIcon
               onClick={() => {
                 setOpenSidebar(!openSidebar);
               }}
+              sx={{ color: "white" }} // Set the icon color to white
             >
               <CloseIcon />
             </ListItemIcon>
             {/* {dark ? <DarkModeIcon /> : <LightModeIcon />} */}
           </ListItemButton>
-
           {path.map((path) => (
             <ListItem
               key={path}
               button
               onClick={() => {
                 setSelectNav(path);
+                setOpenSidebar(!openSidebar);
               }}
-              selected={selectNav === path}
+              sx={{
+                color: "rgb(248 250 252)",
+              }}
             >
-              <ListItemIcon>
+              <ListItemIcon sx={{ color: "white" }}>
+                {" "}
+                {/* Set the icon color to white */}
                 {path === "Home" ? (
                   <HomeIcon />
                 ) : path === "Posts" ? (
@@ -73,6 +90,8 @@ export default function Sidebar({
                   <NoteAltIcon />
                 ) : path === "Inventory" ? (
                   <InventoryIcon />
+                ) : path === "Add Product" ? (
+                  <NoteAltIcon />
                 ) : (
                   ""
                 )}
